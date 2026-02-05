@@ -1,9 +1,12 @@
 matplotlib
 numpy
-sklearn
+# sklearn
+scikit-learn
 pandas
 cvxopt
 scipy
 progressbar33
 terminaltables
 gym
+setuptools
+

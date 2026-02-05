@@ -139,10 +139,14 @@ def k_fold_cross_validation_sets(X, y, k, shuffle=True):
 
     # Add left over samples to last set as training samples
     if n_left_overs != 0:
-        np.append(sets[-1][0], left_overs["X"], axis=0)
-        np.append(sets[-1][2], left_overs["y"], axis=0)
+        # np.append returns a new array — assign back to include leftovers
+        sets[-1][0] = np.append(sets[-1][0], left_overs["X"], axis=0)
+        sets[-1][2] = np.append(sets[-1][2], left_overs["y"], axis=0)
 
-    return np.array(sets)
+    # Return as a list of (X_train, X_test, y_train, y_test) tuples/lists.
+    # Converting to a NumPy array can fail when the inner arrays have
+    # different shapes (ragged), so keep the original list structure.
+    return sets
 
 
 def to_categorical(x, n_col=None):
